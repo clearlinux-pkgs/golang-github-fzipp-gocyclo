@@ -18,18 +18,29 @@ following rules:
 
 %build
 export LANG=C
+mkdir -p build-dir/src/github.com/fzipp
+ln -s $(pwd) build-dir/src/github.com/fzipp/gocyclo
+export GOPATH=$(pwd)/build-dir:/usr/lib/golang
+pushd build-dir
+go build github.com/fzipp/gocyclo
+popd
 
 %install
-gopath="/usr/lib/golang"
-library_path="github.com/fzipp/gocyclo"
 rm -rf %{buildroot}
-install -d -p %{buildroot}${gopath}/src/${library_path}/
+%global gopath /usr/lib/golang
+%global library_path github.com/fzipp/gocyclo
+mkdir -p %{buildroot}/usr/bin
+
+install -p -m 755 build-dir/gocyclo %{buildroot}/usr/bin
+
+install -d -p %{buildroot}%{gopath}/src/${library_path}/
 for file in $(find . -iname "*.go" -o -iname "*.h" -o -iname "*.c") ; do
      echo ${file}
-     install -d -p %{buildroot}${gopath}/src/${library_path}/$(dirname $file)
-     cp -pav $file %{buildroot}${gopath}/src/${library_path}/$file
+     install -d -p %{buildroot}%{gopath}/src/%{library_path}/$(dirname $file)
+     cp -pav $file %{buildroot}%{gopath}/src/%{library_path}/$file
 done
 
 %files
 %defattr(-,root,root,-)
+/usr/bin/gocyclo
 /usr/lib/golang/src/github.com/fzipp/gocyclo/gocyclo.go
