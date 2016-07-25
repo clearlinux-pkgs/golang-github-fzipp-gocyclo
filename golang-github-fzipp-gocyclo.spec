@@ -1,6 +1,6 @@
 Name     : golang-github-fzipp-gocyclo
 Version  : 6acd4345c835499920e8426c7e4e8d7a34f1bb83
-Release  : 2
+Release  : 3
 URL      : https://github.com/fzipp/gocyclo/archive/6acd4345c835499920e8426c7e4e8d7a34f1bb83.tar.gz
 Source0  : https://github.com/fzipp/gocyclo/archive/6acd4345c835499920e8426c7e4e8d7a34f1bb83.tar.gz
 Summary  : No detailed summary available
